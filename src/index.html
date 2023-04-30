@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Image Panel with Ranking</title>
+</head>
+<body class="bg-gray-100 p-4">
+  <div id="image-ranking-container"></div>
+
+  <script>
+    imgStr = "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+    const smallImages = Array(9).fill(imgStr)
+    const data = {
+      largeImageUrl: imgStr,
+      smallImageUrls: smallImages,
+    };
+
+    const html = `
+      <div class="flex space-x-4">
+        <div class="relative w-1/2 p-4">
+          <img class="rounded-lg object-cover h-96 w-full" src="${data.largeImageUrl}" alt="Large image">
+          <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
+            Rank 1
+          </div>
+          <a href="${data.largeImageUrl}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
+            <i class="fas fa-download"></i>
+          </a>
+        </div>
+
+        <div class="w-1/2 p-4">
+          <div class="grid grid-cols-3 gap-4">
+            ${data.smallImageUrls.map((url, index) => `
+              <div class="relative h-full">
+                <img class="rounded-lg object-cover h-full w-full" src="${url}" alt="Small image ${index + 2}">
+                <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
+                  Rank ${index + 2}
+                </div>
+                <a href="${url}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
+                  <i class="fas fa-download"></i>
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("image-ranking-container").innerHTML = html;
+  </script>
+</body>
+</html>
