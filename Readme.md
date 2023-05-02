@@ -1,6 +1,7 @@
 Simple photo culling interface.
 
 Built with ChatGPT and human audit.
-Placeholder photo by: https://unsplash.com/@lightphonics
 
-![Screen Shot 2023-04-30 at 4 32 21 PM](https://user-images.githubusercontent.com/14822216/235375048-618a0ed8-5757-4a81-a9dd-3ebbae99b436.png)
+Placeholder photos from Unsplash.
+
+![Screen Shot 2023-05-01 at 9 11 38 PM](https://user-images.githubusercontent.com/14822216/235558627-dc96148c-d9c5-4ff0-b832-e2e5beb7247b.png)
