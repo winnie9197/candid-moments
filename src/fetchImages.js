@@ -1,6 +1,6 @@
 const searchParams = {
   // topics: ['def456'],
-  query: 'candid',
+  query: 'candid coloured portrait',
   orientation: 'landscape',
   count: 10,
 }
