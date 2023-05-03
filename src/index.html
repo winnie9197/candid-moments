@@ -13,11 +13,40 @@
 
   <script>
     // imgStr = "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+
+    async function callPythonBackend(data) {
+	    const response = await fetch('http://127.0.0.1:5000/iip_scores', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	        },
+	        body: JSON.stringify(data),
+	    });
+
+	    if (!response.ok) {
+	        throw new Error(`Error: ${response.status}`);
+	    }
+
+	    const result = await response.json();
+	    return result;
+	}
+
     function handleURLs() {
-    	const data = {
-	      largeImageUrl: window.imgURLs[0],
-	      smallImageUrls: window.imgURLs.slice(1),
-	    };
+    	// Prepare image urls
+    	// const data = {
+	    //   largeImageUrl: window.imgURLs[0],
+	    //   smallImageUrls: window.imgURLs.slice(1),
+	    // };
+
+	    // Fetch score given image urls
+	    const data = { image_url: window.imgURLs };
+		callPythonBackend(data)
+	    .then((result) => console.log(result))
+	    .catch((error) => console.error(error));
+	    console.log(data)
+
+		// TODO - Update to accommodate new 'data' and fetch result
+	    // Image display with score
 		const html = `
 	      <div class="flex space-x-4">
 	        <div class="relative w-1/2 p-4">
