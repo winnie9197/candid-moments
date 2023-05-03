@@ -1,0 +1,3 @@
+[submodule "intrinsic_image_popularity"]
+	path = intrinsic_image_popularity
+	url = https://github.com/winnie9197/Intrinsic-Image-Popularity.git
