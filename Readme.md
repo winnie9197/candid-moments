@@ -8,7 +8,7 @@ Built with ChatGPT and human audit/modifications. Placeholder photos from Unspla
 
 ### Credits 
 
-This project uses an implementation of [Intrinsic Image Popularity Assessment](https://github.com/dingkeyan93/Intrinsic-Image-Popularity).
+This project uses a fork of [Intrinsic Image Popularity Assessment](https://github.com/dingkeyan93/Intrinsic-Image-Popularity).
 
 ```
 @inproceedings{ding2019intrinsic,
