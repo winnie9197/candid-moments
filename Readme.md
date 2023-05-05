@@ -2,9 +2,9 @@
 
 Simple photo culling interface.
 
-Built with ChatGPT and human audit/modifications. Placeholder photos from Unsplash.
+Built with ChatGPT and human audit/modifications. Photos from Unsplash.
 
-![Screen Shot 2023-05-01 at 9 11 38 PM](https://user-images.githubusercontent.com/14822216/235558627-dc96148c-d9c5-4ff0-b832-e2e5beb7247b.png)
+![Screen Shot 2023-05-05 at 1 26 43 AM](https://user-images.githubusercontent.com/14822216/236383474-58d1bbef-978f-4f44-80fa-9ad984c80ae2.png)
 
 ### Credits 
 
