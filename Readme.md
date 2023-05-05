@@ -1,6 +1,6 @@
 # Candid Moments
 
-Simple photo culling interface.
+Simple photo culling interface with photos ranked by [Intrinsic Image Popularity](https://arxiv.org/abs/1907.01985v2).
 
 Built with ChatGPT and human audit/modifications. Photos from Unsplash.
 
