@@ -12,8 +12,6 @@
   <div id="image-ranking-container"></div>
 
   <script>
-    // imgStr = "https://images.unsplash.com/photo-1544507888-56d73eb6046e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
-
     async function callPythonBackend(data) {
 	    const response = await fetch('http://127.0.0.1:5000/iip_scores', {
 	        method: 'POST',
@@ -32,52 +30,56 @@
 	}
 
     function handleURLs() {
-    	// Prepare image urls
-    	// const data = {
-	    //   largeImageUrl: window.imgURLs[0],
-	    //   smallImageUrls: window.imgURLs.slice(1),
-	    // };
-
-	    // Fetch score given image urls
+	    // Prepare image urls
 	    const data = { image_url: window.imgURLs };
+	    // Fetch score given image urls
 		callPythonBackend(data)
-	    .then((result) => console.log(result))
+	    .then((result) => {
+	    	const result_len = result.length
+	    	let imageUrl = new Array()
+	    	let imageScore = new Array()
+
+	    	for (let index = 0; index < result_len; index++) {
+	    		imageUrl.push(result[index][0])
+	    		imageScore.push(result[index][1])
+	    	}
+			const largeImageUrl = imageUrl[0]
+	    	const smallImageUrls = imageUrl.slice(1)
+
+		    // Image display with score
+			const html = `
+		      <div class="flex space-x-4">
+		        <div class="relative w-1/2 p-4">
+		          <img class="rounded-lg object-cover h-96 w-full" src="${largeImageUrl}" alt="Large image">
+		          <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
+		            Rank 1 (${Math.round(imageScore[0] * 100) / 100})
+		          </div>
+		          <a href="${largeImageUrl}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
+		            <i class="fas fa-download"></i>
+		          </a>
+		        </div>
+
+		        <div class="w-1/2 p-4">
+		          <div class="grid grid-cols-3 gap-4">
+		            ${smallImageUrls ? smallImageUrls.map((url, index) => `
+		              <div class="relative h-full">
+		                <img class="rounded-lg object-cover h-full w-full" src="${url}" alt="Small image ${index + 2}">
+		                <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
+						    Rank ${index + 2} (${Math.round(imageScore[index+1] * 100) / 100})
+						</div>
+		                <a href="${url}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
+		                  <i class="fas fa-download"></i>
+		                </a>
+		              </div>
+		            `).join('') : ''}
+		          </div>
+		        </div>
+		      </div>
+		    `;
+
+		    document.getElementById("image-ranking-container").innerHTML = html;
+		})
 	    .catch((error) => console.error(error));
-	    console.log(data)
-
-		// TODO - Update to accommodate new 'data' and fetch result
-	    // Image display with score
-		const html = `
-	      <div class="flex space-x-4">
-	        <div class="relative w-1/2 p-4">
-	          <img class="rounded-lg object-cover h-96 w-full" src="${data.largeImageUrl}" alt="Large image">
-	          <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
-	            Rank 1
-	          </div>
-	          <a href="${data.largeImageUrl}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
-	            <i class="fas fa-download"></i>
-	          </a>
-	        </div>
-
-	        <div class="w-1/2 p-4">
-	          <div class="grid grid-cols-3 gap-4">
-	            ${data.smallImageUrls.map((url, index) => `
-	              <div class="relative h-full">
-	                <img class="rounded-lg object-cover h-full w-full" src="${url}" alt="Small image ${index + 2}">
-	                <div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs font-bold py-1 px-2 rounded-br-md">
-	                  Rank ${index + 2}
-	                </div>
-	                <a href="${url}" download class="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white text-xs font-bold py-2 px-2 rounded-tl-md">
-	                  <i class="fas fa-download"></i>
-	                </a>
-	              </div>
-	            `).join('')}
-	          </div>
-	        </div>
-	      </div>
-	    `;
-
-	    document.getElementById("image-ranking-container").innerHTML = html;
 	}
 	window.addEventListener('imgURLsReady', handleURLs);
     
